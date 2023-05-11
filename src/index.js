@@ -1,7 +1,8 @@
 import './index.css';
-import App from './App';
 import React from 'react';
+import Nav from './components/Nav';
 import ReactDOM from 'react-dom/client';
+import { AppRoutes } from './routes/public';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthGoogleProvider } from './contexts/authGoogle';
@@ -11,7 +12,8 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthGoogleProvider>
-        <App />
+        <Nav />
+        <AppRoutes />
       </AuthGoogleProvider>
     </BrowserRouter>
   </React.StrictMode>

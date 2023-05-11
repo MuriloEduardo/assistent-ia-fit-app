@@ -10,8 +10,9 @@ export const AuthGoogleContext = createContext({});
 export const AuthGoogleProvider = ({ children }) => {
     const auth = getAuth(app);
 
-    const [sessionStorageUser, setSessionStorageUser] = useState();
     const [user, setUser] = useState();
+    const [socket, setSocket] = useState(null);
+    const [sessionStorageUser, setSessionStorageUser] = useState();
 
     useEffect(() => {
         const user = sessionStorage.getItem('@AuthFirebase:user');
@@ -34,6 +35,18 @@ export const AuthGoogleProvider = ({ children }) => {
             }).catch(error => console.error(error));
         }
     }, [user, sessionStorageUser]);
+
+    useEffect(() => {
+        const socket = new WebSocket(`ws:${process.env.REACT_APP_SERVER_BASE_URL}/messages`);
+
+        socket.onopen = () => {
+            setSocket(socket);
+        };
+
+        return () => {
+            if (socket.readyState) socket.close();
+        };
+    }, []);
 
     const signInGoogle = () => {
         signInWithPopup(auth, provider)
@@ -65,7 +78,7 @@ export const AuthGoogleProvider = ({ children }) => {
     };
 
     return (
-        <AuthGoogleContext.Provider value={{ signInGoogle, user, signOut }}>
+        <AuthGoogleContext.Provider value={{ signInGoogle, user, signOut, socket }}>
             {children}
         </AuthGoogleContext.Provider>
     );
