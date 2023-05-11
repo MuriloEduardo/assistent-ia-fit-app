@@ -9,8 +9,8 @@ export const AuthGoogleContext = createContext({});
 
 export const AuthGoogleProvider = ({ children }) => {
     const auth = getAuth(app);
-    const [sessionStorageUser, setSessionStorageUser] = useState();
 
+    const [sessionStorageUser, setSessionStorageUser] = useState();
     const [user, setUser] = useState();
 
     useEffect(() => {
