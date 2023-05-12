@@ -14,10 +14,8 @@ function Login() {
             {!user ? (
                 <button
                     className="px-4 py-2 rounded-md bg-blue-900 text-gray-300"
-                    onClick={() => signInGoogle()}
-                >
-                    Entrar com <strong>Google</strong>
-                </button>
+                    onClick={signInGoogle}
+                >Entrar com <strong>Google</strong></button>
             ) : <Navigate to="/" />}
         </div>
     );

@@ -1,7 +1,7 @@
 import { app } from '../config/firebase';
 import { Navigate } from 'react-router-dom';
 import { createContext, useEffect, useState } from 'react';
-import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
+import { GoogleAuthProvider, getAuth, signInWithRedirect, getRedirectResult } from 'firebase/auth';
 
 const provider = new GoogleAuthProvider();
 
@@ -16,9 +16,8 @@ export const AuthGoogleProvider = ({ children }) => {
 
     useEffect(() => {
         const user = sessionStorage.getItem('@AuthFirebase:user');
-        const token = sessionStorage.getItem('@AuthFirebase:token');
 
-        if (token && user) {
+        if (user) {
             const parseUser = JSON.parse(user);
 
             setUser(parseUser);
@@ -27,12 +26,16 @@ export const AuthGoogleProvider = ({ children }) => {
     }, []);
 
     useEffect(() => {
-        if (user && !sessionStorageUser) {
+        const createNewUser = () => {
             fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/users`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(user),
             }).catch(error => console.error(error));
+        };
+
+        if (user && !sessionStorageUser) {
+            createNewUser();
         }
     }, [user, sessionStorageUser]);
 
@@ -48,25 +51,19 @@ export const AuthGoogleProvider = ({ children }) => {
         };
     }, []);
 
-    const signInGoogle = () => {
-        signInWithPopup(auth, provider)
+    useEffect(() => {
+        getRedirectResult(auth)
             .then(result => {
-                const credential = GoogleAuthProvider.credentialFromResult(result);
+                if (result && result.user) {
+                    sessionStorage.setItem('@AuthFirebase:user', JSON.stringify(result.user));
 
-                const user = result.user;
-                const token = credential.accessToken;
-
-                setUser(user);
-
-                sessionStorage.setItem('@AuthFirebase:token', token);
-                sessionStorage.setItem('@AuthFirebase:user', JSON.stringify(user));
-            }).catch(error => {
-                const { code, message, customData: { email } } = error;
-
-                const credential = GoogleAuthProvider.credentialFromError(error);
-
-                console.log(code, message, email, credential);
+                    setUser(result.user);
+                }
             });
+    }, [auth]);
+
+    const signInGoogle = () => {
+        signInWithRedirect(auth, provider);
     };
 
     const signOut = () => {
