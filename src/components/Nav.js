@@ -10,7 +10,10 @@ function Nav() {
     return user &&
         <nav className="flex justify-between items-center px-4 py-2 bg-slate-800 text-gray-300 shadow shadow-slate-400">
             <NavLink to="/">
-                <img src="https://assistentia.fit/wp-content/uploads/2023/05/logo.png" className="w-10" alt="Logo" />
+                <div className="flex items-center space-x-2">
+                    <img src="https://assistentia.fit/wp-content/uploads/2023/05/logo.png" className="w-10" alt="Logo" />
+                    <h1 className="text-xl">Assistent IA Fit</h1>
+                </div>
             </NavLink>
             <div className="flex space-x-2 items-center">
                 <NavLink to="/auth/user">
