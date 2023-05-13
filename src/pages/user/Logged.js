@@ -16,8 +16,6 @@ function Logged() {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        console.log(user);
-
         fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/users/${user.email}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },

@@ -40,7 +40,9 @@ export const AuthGoogleProvider = ({ children }) => {
     }, [user, sessionStorageUser]);
 
     useEffect(() => {
-        const socket = new WebSocket(`ws:${process.env.REACT_APP_SERVER_BASE_URL}/messages`);
+        if (!user) return;
+
+        const socket = new WebSocket(`ws:${process.env.REACT_APP_SERVER_BASE_URL}/messages?email=${user?.email}`);
 
         socket.onopen = () => {
             setSocket(socket);
@@ -49,7 +51,7 @@ export const AuthGoogleProvider = ({ children }) => {
         return () => {
             if (socket.readyState) socket.close();
         };
-    }, []);
+    }, [user]);
 
     useEffect(() => {
         getRedirectResult(auth)
