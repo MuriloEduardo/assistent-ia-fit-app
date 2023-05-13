@@ -5,7 +5,6 @@ import { AuthGoogleContext } from '../contexts/authGoogle';
 
 function Home() {
     const [messages, setMessages] = useState([]);
-    const [responseChat, setResponseChat] = useState('');
 
     const { socket } = useContext(AuthGoogleContext);
 
@@ -18,10 +17,19 @@ function Home() {
             socket.onmessage = ({ data }) => {
                 try {
                     const { choices } = JSON.parse(data);
-                    const [{ delta: { content } }] = choices;
+                    const [{ delta: { content, role } }] = choices;
+
+                    if (role) {
+                        setMessages(messages => [...messages, '']);
+                    }
 
                     if (content) {
-                        setResponseChat(state => state + content);
+                        setMessages(messages => {
+                            const last = messages[messages.length - 1];
+                            const minusTheLast = messages.filter((_, index) => index < messages.length - 1);
+
+                            return [...minusTheLast, last + content];
+                        });
                     }
                 } catch (error) {
                     console.log(error, data);
@@ -32,11 +40,10 @@ function Home() {
 
     return (
         <>
-            <div className="flex flex-col p-4 pb-32 space-y-4">
+            <div className="flex flex-col p-4 pb-28 overflow-y-scroll">
                 {messages.map((message, index) => (
-                    <p key={index}>{message}</p>
+                    <ReactMarkdown key={index} children={message} className="markdown" />
                 ))}
-                <ReactMarkdown children={responseChat} className="markdown" />
             </div>
             <FormChat socket={socket} sendMessage={sendMessage} />
         </>
