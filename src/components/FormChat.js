@@ -1,14 +1,12 @@
 import { useState } from 'react';
 
-function FormChat({ socket, sendMessage }) {
+function FormChat({ sendMessage }) {
     const [formData, setFormData] = useState({
         message: '',
     });
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
-        socket.send(JSON.stringify(formData.message));
 
         sendMessage(formData.message);
 
