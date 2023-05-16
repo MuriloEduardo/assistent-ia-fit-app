@@ -13,6 +13,6 @@ RUN npm run build
 # ==== RUN =======
 ENV NODE_ENV production
 
-EXPOSE 3000
+EXPOSE 8080
 
 CMD [ "npx", "serve", "build" ]
