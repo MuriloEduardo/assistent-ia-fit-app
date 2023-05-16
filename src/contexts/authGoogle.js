@@ -42,7 +42,7 @@ export const AuthGoogleProvider = ({ children }) => {
     useEffect(() => {
         if (!user) return;
 
-        const socket = new WebSocket(`ws:${process.env.REACT_APP_SERVER_BASE_URL}/messages?email=${user?.email}`);
+        const socket = new WebSocket(`wss:${process.env.REACT_APP_SERVER_BASE_URL}/messages?email=${user?.email}`);
 
         socket.onopen = () => {
             setSocket(socket);
