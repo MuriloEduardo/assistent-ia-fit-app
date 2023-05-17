@@ -28,7 +28,7 @@ const Suggestions = ({ handleClickSuggestions }) => {
 
     return <div>
         {loading ? (
-            <div className="flex flex-col items-center space-y-4">
+            <div className="flex flex-col space-y-2 p-4">
                 <small>Carregando sugestões para você {user?.displayName}...</small>
                 <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-slate-800" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
