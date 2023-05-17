@@ -24,8 +24,8 @@ function FormChat({ sendMessage, handleClickSuggestions }) {
     };
 
     return (
-        <div className="fixed bottom-4 left-4 right-4 bg-white">
-            <h4 className="text-xl font-bold">O que você pretende fazer para sua saúde hoje?</h4>
+        <div className="p-4 space-y-4">
+            <h4 className="text-xl font-bold text-gray-300">O que você pretende fazer para sua saúde hoje?</h4>
             <Suggestions handleClickSuggestions={handleClickSuggestions} />
             <form onSubmit={handleSubmit} className="flex justify-between bg-slate-800 rounded-xl shadow-md shadow-slate-400">
                 <textarea

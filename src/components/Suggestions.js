@@ -27,7 +27,7 @@ const Suggestions = ({ handleClickSuggestions }) => {
     const selectSuggestion = suggestion => handleClickSuggestions(suggestion);
 
     return !loading && (
-        <div className="flex space-x-4 justify-between p-4">
+        <div className="flex space-x-4 justify-between">
             {suggestions?.map(({ suggestion, emoji }, index) => (
                 <div onClick={() => selectSuggestion(suggestion)} key={index} className="cursor-pointer border rounded p-4 text-center">
                     <span>{emoji}</span>

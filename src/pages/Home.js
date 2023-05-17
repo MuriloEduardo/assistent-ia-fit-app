@@ -46,7 +46,7 @@ function Home() {
 
     return (
         <>
-            <div className="flex flex-col p-4 pb-28">
+            <div className="flex flex-col p-4 grow overflow-y-auto">
                 {messages.map((message, index) => (
                     <ReactMarkdown key={index} children={message} className="markdown" />
                 ))}
