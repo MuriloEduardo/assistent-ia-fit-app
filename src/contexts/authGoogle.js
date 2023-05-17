@@ -31,7 +31,9 @@ export const AuthGoogleProvider = ({ children }) => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(user),
-            }).catch(error => console.error(error));
+            })
+                .then(() => setUser(state => ({ ...state, created_api: true })))
+                .catch(error => console.error(error));
         };
 
         if (user && !sessionStorageUser) {

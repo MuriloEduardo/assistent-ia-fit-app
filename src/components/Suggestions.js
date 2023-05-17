@@ -21,7 +21,9 @@ const Suggestions = ({ handleClickSuggestions }) => {
             }
         };
 
-        fetchData();
+        if (user && user.created_api) {
+            fetchData();
+        }
     }, [user]);
 
     const selectSuggestion = suggestion => handleClickSuggestions(suggestion);
