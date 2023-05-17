@@ -30,7 +30,6 @@ function FormChat({ sendMessage, handleClickSuggestions }) {
             <form onSubmit={handleSubmit} className="flex justify-between bg-slate-800 rounded-xl shadow-md shadow-slate-400">
                 <textarea
                     autoFocus
-                    id="message"
                     name="message"
                     onChange={handleChange}
                     value={formData.message}
