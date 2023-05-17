@@ -29,7 +29,7 @@ const Suggestions = ({ handleClickSuggestions }) => {
     return !loading && (
         <div className="flex space-x-4 justify-between">
             {suggestions?.map(({ suggestion, emoji }, index) => (
-                <div onClick={() => selectSuggestion(suggestion)} key={index} className="cursor-pointer border rounded p-4 text-center">
+                <div onClick={() => selectSuggestion(suggestion)} key={index} className="cursor-pointer border rounded p-4 text-center text-xs">
                     <span>{emoji}</span>
                     <h4>{suggestion}</h4>
                 </div>
