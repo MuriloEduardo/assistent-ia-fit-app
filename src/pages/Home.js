@@ -1,9 +1,11 @@
 import ReactMarkdown from 'react-markdown';
 import FormChat from '../components/FormChat';
-import { useContext, useEffect, useState } from 'react';
 import { AuthGoogleContext } from '../contexts/authGoogle';
+import { useContext, useEffect, useRef, useState } from 'react';
 
 function Home() {
+    const scrollRef = useRef(null);
+
     const [messages, setMessages] = useState([]);
 
     const { socket } = useContext(AuthGoogleContext);
@@ -44,9 +46,14 @@ function Home() {
         }
     }, [socket]);
 
+    useEffect(() => {
+        const divElement = scrollRef.current;
+        divElement.scrollTop = divElement.scrollHeight;
+    }, [scrollRef, messages]);
+
     return (
         <>
-            <div className="flex flex-col p-4 grow overflow-y-auto">
+            <div ref={scrollRef} className="flex flex-col p-4 grow overflow-y-auto max-h-full">
                 {messages.map((message, index) => (
                     <ReactMarkdown key={index} children={message} className="markdown" />
                 ))}
