@@ -12,6 +12,7 @@ export const AuthGoogleProvider = ({ children }) => {
 
     const [user, setUser] = useState();
     const [socket, setSocket] = useState(null);
+    const [userCreatedApi, setUserCreatedApi] = useState(false);
     const [sessionStorageUser, setSessionStorageUser] = useState();
 
     useEffect(() => {
@@ -32,7 +33,7 @@ export const AuthGoogleProvider = ({ children }) => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(user),
             })
-                .then(() => setUser(state => ({ ...state, created_api: true })))
+                .then(() => setUserCreatedApi(true))
                 .catch(error => console.error(error));
         };
 
@@ -46,9 +47,7 @@ export const AuthGoogleProvider = ({ children }) => {
 
         const socket = new WebSocket(`wss:${process.env.REACT_APP_SERVER_BASE_URL}/messages?email=${user?.email}`);
 
-        socket.onopen = () => {
-            setSocket(socket);
-        };
+        socket.onopen = () => setSocket(socket);
 
         return () => {
             if (socket.readyState) socket.close();
@@ -79,7 +78,7 @@ export const AuthGoogleProvider = ({ children }) => {
     };
 
     return (
-        <AuthGoogleContext.Provider value={{ signInGoogle, user, signOut, socket }}>
+        <AuthGoogleContext.Provider value={{ signInGoogle, user, signOut, socket, userCreatedApi }}>
             {children}
         </AuthGoogleContext.Provider>
     );
