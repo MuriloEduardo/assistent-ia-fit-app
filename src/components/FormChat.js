@@ -27,7 +27,7 @@ function FormChat({ sendMessage, handleClickSuggestions }) {
         <div className="px-4 py-2 space-y-2">
             <h4 className="text-gray-400">O que você pretende fazer para sua saúde hoje?</h4>
             <Suggestions handleClickSuggestions={handleClickSuggestions} />
-            <form onSubmit={handleSubmit} className="flex justify-between bg-slate-800 rounded-xl shadow-md shadow-slate-400">
+            <form onSubmit={handleSubmit} className="flex justify-between relative z-10 bg-slate-800 rounded-xl shadow-md shadow-slate-400">
                 <textarea
                     autoFocus
                     name="message"

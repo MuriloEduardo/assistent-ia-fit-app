@@ -70,7 +70,7 @@ export default function Feedbacks({ email }) {
         };
     }, [created]);
 
-    return <div className="fixed top-0 bottom-0 right-0 flex flex-col items-end justify-center">
+    return <div className="fixed top-0 bg-red-500 bottom-0 right-0 flex flex-col items-end justify-center">
         {isOpen && <form onSubmit={handleSubmit} className="flex flex-col items-end py-4 rounded-lg shadow-lg space-y-2 bg-white">
             <div className="flex space-x-4 px-3">
                 <label className={`p-1 rounded text-xs ${formData.type === 'general' ? 'bg-slate-800 text-white' : ''}`}>
