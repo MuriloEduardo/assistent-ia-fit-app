@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function Feedbacks() {
+export default function Feedbacks({ email }) {
     const [created, setCreated] = useState(false);
     const [error, setError] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +13,7 @@ export default function Feedbacks() {
         fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/feedbacks`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData),
+            body: JSON.stringify({ ...formData, email }),
         })
             .then(() => {
                 setError(false);
@@ -31,10 +31,10 @@ export default function Feedbacks() {
 
         createNewFeedback();
 
-        setFormData({
-            type: '',
+        setFormData(() => ({
+            type: 'general',
             message: '',
-        });
+        }));
     };
 
     const handleChange = (event) => {
@@ -42,7 +42,7 @@ export default function Feedbacks() {
 
         setFormData(formData => ({
             ...formData,
-            [name]: value
+            [name]: value,
         }));
     };
 

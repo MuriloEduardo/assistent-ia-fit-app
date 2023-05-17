@@ -6,7 +6,6 @@ import { AppRoutes } from './routes/public';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthGoogleProvider } from './contexts/authGoogle';
-import Feedbacks from './components/Feedbacks';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -18,7 +17,6 @@ root.render(
           <AppRoutes />
         </div>
       </AuthGoogleProvider>
-      <Feedbacks />
     </BrowserRouter>
   </React.StrictMode>
 );

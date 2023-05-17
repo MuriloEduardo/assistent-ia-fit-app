@@ -1,5 +1,6 @@
 import { app } from '../config/firebase';
 import { Navigate } from 'react-router-dom';
+import Feedbacks from '../components/Feedbacks';
 import { createContext, useEffect, useState } from 'react';
 import { GoogleAuthProvider, getAuth, signInWithRedirect, getRedirectResult } from 'firebase/auth';
 
@@ -76,6 +77,7 @@ export const AuthGoogleProvider = ({ children }) => {
     return (
         <AuthGoogleContext.Provider value={{ signInGoogle, user, signOut, socket }}>
             {children}
+            <Feedbacks email={user?.email} />
         </AuthGoogleContext.Provider>
     );
 };
