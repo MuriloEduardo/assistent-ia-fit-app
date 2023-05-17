@@ -2,7 +2,7 @@ import { app } from '../config/firebase';
 import { Navigate } from 'react-router-dom';
 import Feedbacks from '../components/Feedbacks';
 import { createContext, useEffect, useState } from 'react';
-import { GoogleAuthProvider, getAuth, signInWithRedirect, getRedirectResult } from 'firebase/auth';
+import { GoogleAuthProvider, getAuth, signInWithRedirect, signOut } from 'firebase/auth';
 
 const provider = new GoogleAuthProvider();
 
@@ -13,16 +13,22 @@ export const AuthGoogleProvider = ({ children }) => {
 
     const [user, setUser] = useState();
     const [socket, setSocket] = useState(null);
+    const [loadingLogin, setLoadingLogin] = useState(false);
     const [sessionStorageUser, setSessionStorageUser] = useState();
 
     useEffect(() => {
         const user = sessionStorage.getItem('@AuthFirebase:user');
+        const init = sessionStorage.getItem('@AuthFirebase:init');
 
         if (user) {
             const parseUser = JSON.parse(user);
 
             setUser(parseUser);
             setSessionStorageUser(parseUser);
+        }
+
+        if (init) {
+            setLoadingLogin(true);
         }
     }, []);
 
@@ -54,28 +60,35 @@ export const AuthGoogleProvider = ({ children }) => {
     }, [user]);
 
     useEffect(() => {
-        getRedirectResult(auth)
-            .then(result => {
-                if (result && result.user) {
-                    sessionStorage.setItem('@AuthFirebase:user', JSON.stringify(result.user));
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                sessionStorage.setItem('@AuthFirebase:user', JSON.stringify(user));
 
-                    setUser(result.user);
-                }
-            });
+                setUser(user);
+            } else {
+                sessionStorage.clear();
+
+                setUser();
+            }
+
+            setLoadingLogin(false);
+        });
     }, [auth]);
 
-    const signInGoogle = () => signInWithRedirect(auth, provider);
+    const signInGoogle = () => {
+        sessionStorage.setItem('@AuthFirebase:init', true);
 
-    const signOut = () => {
-        sessionStorage.clear();
+        signInWithRedirect(auth, provider);
+    };
 
-        setUser();
+    const logout = () => {
+        signOut(auth);
 
         return <Navigate to="/" />;
     };
 
     return (
-        <AuthGoogleContext.Provider value={{ signInGoogle, user, signOut, socket }}>
+        <AuthGoogleContext.Provider value={{ signInGoogle, user, logout, socket, loadingLogin }}>
             {children}
             <Feedbacks email={user?.email} />
         </AuthGoogleContext.Provider>

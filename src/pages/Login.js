@@ -1,11 +1,11 @@
 import { useContext } from 'react';
-import { AuthGoogleContext } from '../contexts/authGoogle';
 import { Navigate } from 'react-router-dom';
+import { AuthGoogleContext } from '../contexts/authGoogle';
 
 function Login() {
-    const { signInGoogle, user } = useContext(AuthGoogleContext);
+    const { signInGoogle, user, loadingLogin } = useContext(AuthGoogleContext);
 
-    return (
+    return !loadingLogin ? (
         <div className="flex flex-col justify-center items-center h-screen">
             <div className="border-b mb-6 pb-6">
                 <h1 className="text-xl">Seja-bem vindo(a)!!</h1>
@@ -18,7 +18,7 @@ function Login() {
                 >Entrar com <strong>Google</strong></button>
             ) : <Navigate to="/" />}
         </div>
-    );
+    ) : <div className="h-screen flex justify-center items-center">Carregando...</div>;
 }
 
 export default Login;

@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { AuthGoogleContext } from '../../contexts/authGoogle';
 
 function Logged() {
-    const { signOut, user } = useContext(AuthGoogleContext);
+    const { logout, user } = useContext(AuthGoogleContext);
 
     const [formData, setFormData] = useState({
         age: '',
@@ -81,7 +81,7 @@ function Logged() {
                 <button type="submit" className="rounded border py-2 mt-6 bg-green-600 border-green-800 text-white">Salvar</button>
             </form>
             <div>
-                <button className="rounded border border-gray-300 text-gray-300 px-1" onClick={() => signOut()}>Sair</button>
+                <button className="rounded border border-gray-300 text-gray-300 px-1" onClick={() => logout()}>Sair</button>
             </div>
         </div>
     );
