@@ -21,6 +21,7 @@ export default function Feedbacks({ email }) {
             }),
         })
             .then(() => {
+                restForm();
                 setError(false);
                 setCreated(true);
             })
@@ -35,7 +36,9 @@ export default function Feedbacks({ email }) {
         event.preventDefault();
 
         createNewFeedback();
+    };
 
+    const restForm = () => {
         setFormData(() => ({
             type: 'general',
             message: '',
@@ -52,12 +55,20 @@ export default function Feedbacks({ email }) {
     };
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setCreated(false);
-        }, 2000);
+        let timer;
 
-        return () => clearTimeout(timer);
-    }, []);
+        if (created) {
+            timer = setTimeout(() => {
+                setCreated(false);
+            }, 2000);
+        }
+
+        return () => {
+            if (timer) {
+                clearTimeout(timer);
+            }
+        };
+    }, [created]);
 
     return <div className="fixed top-0 bottom-0 right-0 flex flex-col items-end justify-center">
         {isOpen && <form onSubmit={handleSubmit} className="flex flex-col items-end py-4 rounded-lg shadow-lg space-y-2 bg-white">
