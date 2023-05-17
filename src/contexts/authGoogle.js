@@ -12,7 +12,6 @@ export const AuthGoogleProvider = ({ children }) => {
 
     const [user, setUser] = useState();
     const [socket, setSocket] = useState(null);
-    const [userCreatedApi, setUserCreatedApi] = useState(false);
     const [sessionStorageUser, setSessionStorageUser] = useState();
 
     useEffect(() => {
@@ -33,7 +32,6 @@ export const AuthGoogleProvider = ({ children }) => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(user),
             })
-                .then(() => setUserCreatedApi(true))
                 .catch(error => console.error(error));
         };
 
@@ -65,9 +63,7 @@ export const AuthGoogleProvider = ({ children }) => {
             });
     }, [auth]);
 
-    const signInGoogle = () => {
-        signInWithRedirect(auth, provider);
-    };
+    const signInGoogle = () => signInWithRedirect(auth, provider);
 
     const signOut = () => {
         sessionStorage.clear();
@@ -78,7 +74,7 @@ export const AuthGoogleProvider = ({ children }) => {
     };
 
     return (
-        <AuthGoogleContext.Provider value={{ signInGoogle, user, signOut, socket, userCreatedApi }}>
+        <AuthGoogleContext.Provider value={{ signInGoogle, user, signOut, socket }}>
             {children}
         </AuthGoogleContext.Provider>
     );

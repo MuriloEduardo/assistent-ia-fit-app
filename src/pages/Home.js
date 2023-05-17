@@ -16,9 +16,7 @@ function Home() {
         setMessages(messages => [...messages, message]);
     };
 
-    const handleClickSuggestions = (suggestion) => {
-        sendMessage(suggestion);
-    };
+    const handleClickSuggestions = (suggestion) => sendMessage(suggestion);
 
     useEffect(() => {
         if (socket) {
