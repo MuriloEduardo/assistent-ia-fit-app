@@ -1,6 +1,5 @@
 import ReactMarkdown from 'react-markdown';
 import FormChat from '../components/FormChat';
-import Suggestions from '../components/Suggestions';
 import { useContext, useEffect, useState } from 'react';
 import { AuthGoogleContext } from '../contexts/authGoogle';
 
@@ -52,8 +51,7 @@ function Home() {
                     <ReactMarkdown key={index} children={message} className="markdown" />
                 ))}
             </div>
-            <Suggestions handleClickSuggestions={handleClickSuggestions} />
-            <FormChat socket={socket} sendMessage={sendMessage} />
+            <FormChat socket={socket} sendMessage={sendMessage} handleClickSuggestions={handleClickSuggestions} />
         </>
     );
 }
