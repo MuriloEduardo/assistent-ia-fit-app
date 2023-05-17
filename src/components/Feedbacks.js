@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 export default function Feedbacks({ email }) {
+    const absoluteUrl = window.location.href;
     const [created, setCreated] = useState(false);
     const [error, setError] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +14,11 @@ export default function Feedbacks({ email }) {
         fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/feedbacks`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ...formData, email }),
+            body: JSON.stringify({
+                ...formData,
+                email,
+                url: absoluteUrl,
+            }),
         })
             .then(() => {
                 setError(false);
@@ -103,7 +108,7 @@ export default function Feedbacks({ email }) {
 
                 {error && <p className="text-red-500">Ocorreu um erro ao enviar o feedback.</p>}
 
-                <button type="submit" className="px-4 py-1 bg-slate-800 text-white rounded">Enviar feedback</button>
+                <button type="submit" className="px-4 py-1 bg-slate-800 text-white rounded">Feedbacks</button>
             </div>
         </form>}
         <button onClick={() => setIsOpen(state => !state)} className="bg-slate-900 text-white text-xs px-4 py-2 rounded-s-lg shadow-lg">
