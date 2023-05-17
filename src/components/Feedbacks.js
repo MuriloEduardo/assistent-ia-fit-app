@@ -15,7 +15,10 @@ export default function Feedbacks() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData),
         })
-            .then(() => setCreated(true))
+            .then(() => {
+                setError(false);
+                setCreated(true);
+            })
             .catch(error => {
                 console.error(error);
 
