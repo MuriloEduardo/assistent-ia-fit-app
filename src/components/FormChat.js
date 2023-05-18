@@ -34,7 +34,7 @@ function FormChat({ sendMessage, handleClickSuggestions }) {
                     onChange={handleChange}
                     value={formData.message}
                     placeholder="Peça o que quiser..."
-                    className="grow outline-0 bg-transparent text-white p-2"
+                    className="grow outline-0 bg-transparent text-white p-2 resize-none"
                 />
                 <button type="submit" className="text-white px-2">
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-6 stroke-white" viewBox="0 0 24 24" fill="none">
