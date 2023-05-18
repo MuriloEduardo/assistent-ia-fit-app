@@ -51,7 +51,7 @@ function Home() {
 
     return (
         <>
-            <div ref={scrollRef} className="flex flex-col px-4 grow overflow-y-auto max-h-full">
+            <div ref={scrollRef} className="flex flex-col px-4 overflow-y-auto max-h-full pt-14">
                 {messages.map((message, index) => (
                     <ReactMarkdown key={index} children={message} className="markdown" />
                 ))}
