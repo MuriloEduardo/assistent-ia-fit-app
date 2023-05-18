@@ -30,7 +30,7 @@ function Nav() {
         <nav className="flex justify-between z-10 items-center px-4 py-2 bg-slate-800 text-gray-300 shadow shadow-slate-400">
             <NavLink to="/">
                 <div className="flex items-center space-x-2">
-                    <img src="/logo.png" className="w-10" alt="Logo" width="35" height="35" />
+                    <img src="/logo.png" alt="Nossa logo" width="35" height="35" />
                     <h1>Assistent IA Fit</h1>
                 </div>
             </NavLink>
