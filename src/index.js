@@ -12,7 +12,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthGoogleProvider>
-        <div className="flex flex-col h-screen">
+        <div className="flex flex-col h-full">
           <Nav />
           <AppRoutes />
         </div>

@@ -27,7 +27,7 @@ function Nav() {
     }, []);
 
     return user &&
-        <nav className="flex justify-between z-10 items-center px-4 py-1 bg-blue-800 text-gray-300 shadow shadow-slate-400">
+        <nav className="flex justify-between z-10 items-center px-4 py-2 bg-blue-800 text-gray-300 shadow shadow-slate-400">
             <NavLink to="/">
                 <div className="flex items-center space-x-2">
                     <img src="/logo.png" alt="Nossa logo" width="30" height="30" />
