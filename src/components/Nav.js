@@ -30,7 +30,7 @@ function Nav() {
         <nav className="flex justify-between z-10 items-center px-4 py-1 bg-blue-800 text-gray-300 shadow shadow-slate-400">
             <NavLink to="/">
                 <div className="flex items-center space-x-2">
-                    <img src="/logo.png" alt="Nossa logo" width="35" height="35" />
+                    <img src="/logo.png" alt="Nossa logo" width="30" height="30" />
                     <h1>Assistent IA Fit</h1>
                 </div>
             </NavLink>
@@ -38,7 +38,7 @@ function Nav() {
                 <NavLink to="/auth/user">
                     <div className="flex space-x-2 items-center">
                         <span className="text-right">{timeOfDay} {firstName}</span>
-                        <img className="rounded-full" referrerPolicy="no-referrer" src={user?.photoURL} alt={user?.displayName} width={35} height={35} />
+                        <img className="rounded-full" referrerPolicy="no-referrer" src={user?.photoURL} alt={user?.displayName} width={30} height={30} />
                     </div>
                 </NavLink>
             </div>
