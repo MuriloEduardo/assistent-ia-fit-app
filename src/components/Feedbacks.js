@@ -130,7 +130,7 @@ export default function Feedbacks({ email }) {
                 <button type="submit" className="px-4 py-1 bg-slate-800 text-white rounded">Enviar feedback</button>
             </div>
         </form>}
-        <button onClick={() => setIsOpen(state => !state)} className="bg-slate-900 text-white text-xs p-2 rounded-s-lg shadow-lg">
+        <button onClick={() => setIsOpen(state => !state)} className="bg-blue-800 text-white text-xs p-2 rounded-s-lg shadow-lg">
             {!isOpen ? 'Feedbacks' : 'Fechar'}
         </button>
     </div>;
