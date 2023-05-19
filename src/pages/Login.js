@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import { AuthGoogleContext } from '../contexts/authGoogle';
+import LoadingEllipsis from '../components/LoadingEllipsis';
 
 function Login() {
     const { signInGoogle, user, loadingLogin } = useContext(AuthGoogleContext);
@@ -18,7 +19,9 @@ function Login() {
                 >Entrar com <strong>Google</strong></button>
             ) : <Navigate to="/" />}
         </div>
-    ) : <div className="h-screen flex justify-center items-center">Carregando...</div>;
+    ) : <div className="h-screen flex justify-center items-center">
+        <LoadingEllipsis text="Carregando suas informações" />
+    </div>;
 }
 
 export default Login;
