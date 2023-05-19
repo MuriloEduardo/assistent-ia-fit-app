@@ -13,7 +13,7 @@ export const AuthGoogleProvider = ({ children }) => {
 
     const [user, setUser] = useState();
     const [socket, setSocket] = useState(null);
-    const [createdUser, setCreatedUser] = useState(false);
+    const [userFromApi, setUserFromApi] = useState(false);
     const [loadingLogin, setLoadingLogin] = useState(false);
     const [sessionStorageUser, setSessionStorageUser] = useState();
 
@@ -39,9 +39,7 @@ export const AuthGoogleProvider = ({ children }) => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(user),
-            })
-                .then(response => setCreatedUser(response.ok))
-                .catch(error => console.error(error));
+            }).catch(error => console.error(error));
         };
 
         if (user && !sessionStorageUser) {
@@ -77,6 +75,19 @@ export const AuthGoogleProvider = ({ children }) => {
         });
     }, [auth]);
 
+    useEffect(() => {
+        const getUserFromApi = () => {
+            fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/users/${user.email}`)
+                .then(response => response.json())
+                .then(data => setUserFromApi(data))
+                .catch(error => console.error(error));
+        };
+
+        if (user) {
+            getUserFromApi();
+        }
+    }, [user]);
+
     const signInGoogle = () => {
         sessionStorage.setItem('@AuthFirebase:init', true);
 
@@ -90,7 +101,7 @@ export const AuthGoogleProvider = ({ children }) => {
     };
 
     return (
-        <AuthGoogleContext.Provider value={{ signInGoogle, user, logout, socket, loadingLogin, createdUser, sessionStorageUser }}>
+        <AuthGoogleContext.Provider value={{ signInGoogle, user, logout, socket, loadingLogin, userFromApi }}>
             {children}
             <Feedbacks email={user?.email} />
         </AuthGoogleContext.Provider>
