@@ -13,6 +13,7 @@ export const AuthGoogleProvider = ({ children }) => {
 
     const [user, setUser] = useState();
     const [socket, setSocket] = useState(null);
+    const [createdUser, setCreatedUser] = useState(false);
     const [loadingLogin, setLoadingLogin] = useState(false);
     const [sessionStorageUser, setSessionStorageUser] = useState();
 
@@ -39,6 +40,7 @@ export const AuthGoogleProvider = ({ children }) => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(user),
             })
+                .then(response => setCreatedUser(response.ok))
                 .catch(error => console.error(error));
         };
 
@@ -88,7 +90,7 @@ export const AuthGoogleProvider = ({ children }) => {
     };
 
     return (
-        <AuthGoogleContext.Provider value={{ signInGoogle, user, logout, socket, loadingLogin }}>
+        <AuthGoogleContext.Provider value={{ signInGoogle, user, logout, socket, loadingLogin, createdUser }}>
             {children}
             <Feedbacks email={user?.email} />
         </AuthGoogleContext.Provider>
