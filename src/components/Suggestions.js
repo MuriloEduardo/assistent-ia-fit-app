@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { AuthGoogleContext } from '../contexts/authGoogle';
 
 const Suggestions = ({ handleClickSuggestions }) => {
-    const { user, createdUser } = useContext(AuthGoogleContext);
+    const { user, createdUser, sessionStorageUser } = useContext(AuthGoogleContext);
 
     const [loading, setLoading] = useState(true);
     const [suggestions, setSuggestions] = useState([]);
@@ -21,8 +21,8 @@ const Suggestions = ({ handleClickSuggestions }) => {
             }
         };
 
-        if (user && createdUser) fetchData();
-    }, [user, createdUser]);
+        if (sessionStorageUser && createdUser) fetchData();
+    }, [user, createdUser, sessionStorageUser]);
 
     const selectSuggestion = suggestion => handleClickSuggestions(suggestion);
 

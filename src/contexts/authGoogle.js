@@ -90,7 +90,7 @@ export const AuthGoogleProvider = ({ children }) => {
     };
 
     return (
-        <AuthGoogleContext.Provider value={{ signInGoogle, user, logout, socket, loadingLogin, createdUser }}>
+        <AuthGoogleContext.Provider value={{ signInGoogle, user, logout, socket, loadingLogin, createdUser, sessionStorageUser }}>
             {children}
             <Feedbacks email={user?.email} />
         </AuthGoogleContext.Provider>
