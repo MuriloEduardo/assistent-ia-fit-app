@@ -21,8 +21,6 @@ const Suggestions = ({ handleClickSuggestions }) => {
             }
         };
 
-        console.log('createdUser', createdUser);
-
         if (user && createdUser) fetchData();
     }, [user, createdUser]);
 
