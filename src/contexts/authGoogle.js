@@ -79,7 +79,7 @@ export const AuthGoogleProvider = ({ children }) => {
         const getUserFromApi = () => {
             fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/users/${user.email}`)
                 .then(response => response.json())
-                .then(data => setUserFromApi(data))
+                .then(({ user }) => setUserFromApi(user))
                 .catch(error => console.error(error));
         };
 
