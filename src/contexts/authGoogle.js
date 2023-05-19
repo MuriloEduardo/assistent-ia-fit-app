@@ -13,7 +13,7 @@ export const AuthGoogleProvider = ({ children }) => {
 
     const [user, setUser] = useState();
     const [socket, setSocket] = useState(null);
-    const [userFromApi, setUserFromApi] = useState(false);
+    const [userFromApi, setUserFromApi] = useState();
     const [loadingLogin, setLoadingLogin] = useState(false);
     const [sessionStorageUser, setSessionStorageUser] = useState();
 
@@ -80,13 +80,13 @@ export const AuthGoogleProvider = ({ children }) => {
             fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/users/${user.email}`)
                 .then(response => response.json())
                 .then(({ user }) => setUserFromApi(user))
-                .catch(error => console.error(error));
+                .catch(() => setUserFromApi(false));
         };
 
-        if (user) {
+        if (user && !userFromApi) {
             getUserFromApi();
         }
-    }, [user]);
+    }, [user, userFromApi]);
 
     const signInGoogle = () => {
         sessionStorage.setItem('@AuthFirebase:init', true);
