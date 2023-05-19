@@ -35,8 +35,10 @@ function Logged() {
     useEffect(() => {
         fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/users/${user.email}`)
             .then(response => response.json())
-            .then(({ information }) => {
-                setFormData(information);
+            .then(data => {
+                if (data.information) {
+                    setFormData(data.information);
+                }
             })
             .catch(error => console.error(error));
     }, [user]);
